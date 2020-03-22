@@ -2,19 +2,21 @@ server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 
-	root /home/pi/pi-dashboard-proxy/html;
+	root /home/pi/pi-kiosk-proxy/html;
 
 	index index.php index.html index.htm;
 
 	server_name _;
 
 	location / {
+		# try to find the files locally (under "html" folder) first
+		# if that fails, go to the actual webserver.
 		try_files $uri @cloudserver;
 	}
 
 	location @cloudserver {
 		# Configure this to the site you want to proxy
-		proxy_pass https://darrylh.ca;
+		proxy_pass https://kiosk-example.darrylh.ca;
 	}
 
 	location ~ \.php$ {
@@ -22,4 +24,3 @@ server {
 		fastcgi_pass unix:/run/php/php7.3-fpm.sock;
 	}
 }
-
