@@ -23,7 +23,7 @@ Flash a MicroSD card and do your usual network and localization setup.  Importan
     * **Wait for Network at Boot** - Enabled
     * **Desktop/CLI** - Desktop Autologin 
 
-I also recommend changing the default user password to something more secure, and enabling SSH so you can remotely log in to the kiosk to perform maintenance.
+I also recommend changing the default user password to something more secure, and enabling SSH so you can remotely log in to the kiosk to perform maintenance.  I like to also turn off the Splash Screen.
 
 ### Clone this repo
 
@@ -75,6 +75,14 @@ sudo systemctl restart nginx
 ### Edit NGINX configuration
 
 The default configuration points to a demo website.  You'll want to modify [the kiosk configuration](./nginx-config/kiosk) to point to your remote webserver.
+
+### Disable Chromium caching
+
+Edit `/etc/chromium-browser/default`
+
+```
+CHROMIUM_FLAGS="--disk-cache-dir=/dev/null --disk-cache-size=1"
+```
 
 ## Control Local Hardware
 
