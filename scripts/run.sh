@@ -4,7 +4,7 @@
 # if it's coming from "localhost".  If your app is in a subdirectory, e.g., if your
 # app is at https://foo.bar/baz/index.php, type "http://localhost/baz/index.php" below.
 
-/usr/bin/chromium-browser --app=http://localhost/ \
+/usr/bin/chromium-browser --app=http://localhost/slideshow \
 	--kiosk \
 	--noerrdialogs \
 	--disable-session-crashed-bubble \
