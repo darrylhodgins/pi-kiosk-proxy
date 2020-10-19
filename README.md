@@ -45,6 +45,37 @@ sudo apt update
 sudo apt install -y unclutter nginx php-fpm
 ```
 
+## PiTFT
+
+If you're installing on a PiTFT, follow the steps from Adafruit:
+
+### Install PiTFT
+
+```bash
+sudo pip3 install --upgrade adafruit-python-shell click==7.0
+sudo apt-get install -y git
+git clone https://github.com/adafruit/Raspberry-Pi-Installer-Scripts.git
+cd Raspberry-Pi-Installer-Scripts
+sudo python3 adafruit-pitft.py --display=28c --rotation=90 --install-type=fbcp
+```
+
+### Modify Screen Resolution
+
+```bash
+sudo vi /boot/config.txt
+```
+
+```
+# hdmi_cvt=640 480 60 1 0 0 0
+hdmi_cvt=320 240 60 1 0 0 0
+```
+
+### Enable GPIO for PHP
+
+```bash
+sudo usermod -a -G gpio www-data
+```
+
 ## Configuration
 
 ### UI Autostart
