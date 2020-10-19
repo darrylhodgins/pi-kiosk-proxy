@@ -15,7 +15,7 @@ In my example (below), I'm using a basic PHP script to control the backlight on 
 
 ### Raspbian
 
-As of March 22, 2020, this is known to work on Raspberry Pi 3B with Raspbian Desktop `2020-02-13-raspbian-buster.img`.
+As of October 19, 2020, this is known to work on Raspberry Pi 3B with Raspberry Pi OS `2020-08-20-raspios-buster-armhf.img`.
 
 Flash a MicroSD card and do your usual network and localization setup.  Important settings in `sudo raspi-config` are:
 
