@@ -16,7 +16,7 @@ server {
 
 	location @cloudserver {
 		# Configure this to the site you want to proxy
-		proxy_pass https://kiosk-example.darrylh.ca;
+		proxy_pass https://darrylh.ca;
 	}
 
 	location ~ \.php$ {
