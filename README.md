@@ -129,8 +129,8 @@ Turn on/off connected HDMI screen
 #### Examples
 
 ```
-curl http://localhost/pi/backlight?power=off
-curl http://localhost/pi/backlight?power=on
+curl http://localhost/pi/hdmi.php?power=off
+curl http://localhost/pi/hdmi.php?power=on
 ```
 
 #### Configuration
@@ -149,8 +149,8 @@ Turn on/off the backlight of the official Raspberry Pi touchscreen
 #### Examples
 
 ```
-curl http://localhost/pi/backlight?power=off
-curl http://localhost/pi/backlight?power=on
+curl http://localhost/pi/backlight.php?power=off
+curl http://localhost/pi/backlight.php?power=on
 ```
 
 #### Configuration
@@ -170,8 +170,8 @@ Turn on/off the backlight of an Adafruit PiTFT
 #### Examples
 
 ```
-curl http://localhost/pi/tft-backlight?power=off
-curl http://localhost/pi/tft-backlight?power=on
+curl http://localhost/pi/tft-backlight.php?power=off
+curl http://localhost/pi/tft-backlight.php?power=on
 ```
 
 ### System Info `/pi/system-info.php`
