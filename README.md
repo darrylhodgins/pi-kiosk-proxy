@@ -122,6 +122,26 @@ This proxy provides a straightforward way to access local resources (on the Rasp
 
 Your web app can make `GET` requests to control the Pi:
 
+### HDMI output
+
+Turn on/off connected HDMI screen
+
+#### Examples
+
+```
+curl http://localhost/pi/backlight?power=off
+curl http://localhost/pi/backlight?power=on
+```
+
+#### Configuration
+
+Add `www-data` user to `video` group and restart the web server.
+
+```bash
+sudo usermod -a -G video www-data
+sudo systemctl restart nginx
+```
+
 ### Pi Official Touchscreen Backlight `/pi/backlight.php`
 
 Turn on/off the backlight of the official Raspberry Pi touchscreen
@@ -173,6 +193,16 @@ curl http://localhost/pi/system-info.php
 ## Cache Large Files
 
 You may copy large graphics or other resources into the [`html`](./html) folder, if you know they won't be changing.
+
+## Optimization and other configuration
+
+### Disable the Pi configuration wizard
+
+If you've configured your Pi from the command line, remove the Wizard that pops up when you boot into Desktop
+
+```bash
+sudo rm /etc/xdg/autostart/piwiz.desktop 
+```
 
 ## Configure Pi to use Overlay File System
 
