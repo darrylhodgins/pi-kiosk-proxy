@@ -24,4 +24,5 @@ if ($power == 'on') {
 ?>{
 	"success": <?php echo $success ?>,
 	"power": <?php echo $powerVal ?>
+
 }
