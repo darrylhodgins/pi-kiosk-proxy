@@ -25,6 +25,11 @@ server {
 		proxy_pass https://kiosk-example.darrylh.ca;
 
 
+		# Delete this line.  It's only used by the example server.
+
+		proxy_set_header X-Pi-Kiosk-Proxy "enabled";
+
+
 		# Uncomment this line and edit it to add an Authorization header if your app requires it.
 
 		# proxy_set_header Authorization "Basic dXNlcm5hbWU6cGFzc3dvcmQK";
