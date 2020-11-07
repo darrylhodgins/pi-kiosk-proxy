@@ -15,8 +15,20 @@ server {
 	}
 
 	location @cloudserver {
+
 		# Configure this to the site you want to proxy
-		proxy_pass https://darrylh.ca;
+
+		# Note that Nginx will not be able to start if it can't resolve this address,
+		# so you need to ensure that your Pi is configured to wait for network on boot.
+		# See https://github.com/darrylhodgins/pi-kiosk-proxy/blob/main/README.md
+
+		proxy_pass https://kiosk-example.darrylh.ca;
+
+
+		# Uncomment this line and edit it to add an Authorization header if your app requires it.
+
+		# proxy_set_header Authorization "Basic dXNlcm5hbWU6cGFzc3dvcmQK";
+
 	}
 
 	location ~ \.php$ {

@@ -25,24 +25,25 @@ Flash a MicroSD card and do your usual network and localization setup.  Importan
 
 I also recommend changing the default user password to something more secure, and enabling SSH so you can remotely log in to the kiosk to perform maintenance.  I like to also turn off the Splash Screen.
 
-### Clone this repo
-
-```bash
-cd /home/pi
-git clone https://github.com/darrylhodgins/pi-kiosk-proxy.git
-```
-
-### Dependencies
+### Install Dependencies
 
 Install the packages required for this project:
 
+* `git` is required to get a copy of this repository from Github
 * `unclutter` hides the mouse cursor after 5 seconds of inactivity
 * `nginx` is a webserver; the brains behind the whole operation
 * `php-fpm` allows you to run PHP scripts on the Raspberry Pi
 
 ```bash
 sudo apt update
-sudo apt install -y unclutter nginx php-fpm
+sudo apt install -y git unclutter nginx php-fpm
+```
+
+### Clone this repository
+
+```bash
+cd /home/pi
+git clone https://github.com/darrylhodgins/pi-kiosk-proxy.git
 ```
 
 ## PiTFT
@@ -105,7 +106,7 @@ sudo systemctl restart nginx
 
 ### Edit NGINX configuration
 
-The default configuration points to a demo website.  You'll want to modify [the kiosk configuration](./nginx-config/kiosk) to point to your remote webserver.
+The default configuration points to a demo website.  You'll want to modify [the kiosk configuration](./nginx-config/kiosk) to point to your remote webserver.  Note that this must be the _root_ of a website; you can't point to a subdirectory.  If your web content resides in a subdirectory, you'll also want to modify [the run.sh script](./scripts/run.sh).
 
 ### Disable Chromium caching
 
@@ -119,14 +120,66 @@ CHROMIUM_FLAGS="--disk-cache-dir=/dev/null --disk-cache-size=1"
 
 This proxy provides a straightforward way to access local resources (on the Raspberry Pi), while still allowing the majority of your content to live on a shared remote server.
 
-### Backlight Control
+Your web app can make `GET` requests to control the Pi:
 
-If you want backlight.php to be able to control the backlight of the official Raspberry Pi toucscreen, add the following line to `/etc/udev/rules.d/99-com.rules`:
+### Pi Official Touchscreen Backlight `/pi/backlight.php`
+
+Turn on/off the backlight of the official Raspberry Pi touchscreen
+
+#### Examples
+
+```
+curl http://localhost/pi/backlight?power=off
+curl http://localhost/pi/backlight?power=on
+```
+
+#### Configuration
+
+Add the following line to `/etc/udev/rules.d/99-com.rules`:
+
+(TODO: This change seems to always get conflict with `apt` upgrades, so I may want to find a more elegant solution)
 
 ```
 SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"
 ```
 
+### Adafruit PiTFT Backlight `/pi/tft-backlight.php`
+
+Turn on/off the backlight of an Adafruit PiTFT
+
+#### Examples
+
+```
+curl http://localhost/pi/tft-backlight?power=off
+curl http://localhost/pi/tft-backlight?power=on
+```
+
+### System Info `/pi/system-info.php`
+
+Get the model number, MAC address and uptime of your Pi.  This could be useful if you want to have several kiosks configured, and your remote webserver can serve different content to each.
+
+#### Example
+
+```
+curl http://localhost/pi/system-info.php
+
+{
+	"system": "Raspberry Pi 3 Model B Rev 1.2",
+	"mac": "de:ad:be:ee:ee:ef",
+	"upSince": "2020-11-07 04:53:32"
+}
+```
+
 ## Cache Large Files
 
-Put large graphics or other resources into the [`html`](./html) folder.
+You may copy large graphics or other resources into the [`html`](./html) folder, if you know they won't be changing.
+
+## Configure Pi to use Overlay File System
+
+After you've got it all working, set your Pi to use Overlay File System.  This will prevent all changes to the Micro SD card, and help to avoid corrupted files.
+
+1. Open `raspi-config` (`sudo raspi-config`).
+2. Choose **Performance Options**, then **Overlay File System**.
+3. When asked, **Would you like the overlay file system to be enabled?**, select **Yes**.
+4. When asked, **Would you like the boot partition to be write-protected?**, select **Yes**.
+5. Reboot
