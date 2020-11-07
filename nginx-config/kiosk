@@ -22,7 +22,8 @@ server {
 		# so you need to ensure that your Pi is configured to wait for network on boot.
 		# See https://github.com/darrylhodgins/pi-kiosk-proxy/blob/main/README.md
 
-		proxy_pass https://kiosk-example.darrylh.ca;
+		# proxy_pass https://kiosk-example.darrylh.ca;
+		proxy_pass http://dashboard.inet.darrylh.ca;
 
 
 		# Uncomment this line and edit it to add an Authorization header if your app requires it.
