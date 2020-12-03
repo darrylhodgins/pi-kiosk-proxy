@@ -169,9 +169,19 @@ Turn on/off the backlight of an Adafruit PiTFT
 
 #### Examples
 
+Control simple on/off:
+
 ```
 curl http://localhost/pi/tft-backlight.php?power=off
 curl http://localhost/pi/tft-backlight.php?power=on
+```
+
+Or, control the brightness (you don't need to set `power` to control brightness; it automatically turns on if you select a value between `1..1023`, and automatically turns off if you select `0`):
+
+```
+curl http://localhost/pi/tft-backlight.php?brightness=0
+curl http://localhost/pi/tft-backlight.php?brightness=511
+curl http://localhost/pi/tft-backlight.php?brightness=1023
 ```
 
 ### System Info `/pi/system-info.php`
