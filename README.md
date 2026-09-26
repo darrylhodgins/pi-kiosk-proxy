@@ -104,9 +104,19 @@ sudo ln -s /etc/nginx/sites-available/kiosk /etc/nginx/sites-enabled/kiosk
 sudo systemctl restart nginx
 ```
 
-### Edit NGINX configuration
+### Configure the remote website
 
-The default configuration points to a demo website.  You'll want to modify [the kiosk configuration](./nginx-config/kiosk) to point to your remote webserver.  Note that this must be the _root_ of a website; you can't point to a subdirectory.  If your web content resides in a subdirectory, you'll also want to modify [the run.sh script](./scripts/run.sh).
+By default, the kiosk proxies the [example page](https://darrylhodgins.github.io/pi-kiosk-proxy/) published from this repository's [`docs`](./docs) folder with GitHub Pages. The page is public and needs no custom domain or special request header.
+
+To use your own website, edit [`nginx-config/kiosk`](./nginx-config/kiosk): remove the `rewrite ^/(.*)$ /pi-kiosk-proxy/$1 break;` line, replace the `proxy_pass` URL with your site's origin (without a path), and reload NGINX. Keep `proxy_ssl_server_name on;` for HTTPS origins. Local files under `html`, including the `/pi/` hardware endpoints, continue to take priority.
+
+```bash
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+If your app lives in a subdirectory, update the local URL in [`scripts/run.sh`](./scripts/run.sh) to include that path. For example, an app at `https://example.com/dashboard/` needs `--app=http://localhost/dashboard/`.
+
+The example page is published by selecting **Settings → Pages → Deploy from a branch → main → /docs** in this repository. It is available at `https://darrylhodgins.github.io/pi-kiosk-proxy/` once GitHub Pages finishes deploying.
 
 ### Disable Chromium caching
 

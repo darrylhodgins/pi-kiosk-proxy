@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Example Site for pi-kiosk-proxy</title>
+	</head>
+	<body>
+		<h1>Hello, World!</h1>
+		<p>This is the example page for <a href="https://github.com/darrylhodgins/pi-kiosk-proxy"><code>pi-kiosk-proxy</code></a>. If you see it on your Raspberry Pi, the kiosk is proxying a remote page successfully.</p>
+
+		<h2>Next Steps</h2>
+		<ol>
+			<li>Edit <a href="https://github.com/darrylhodgins/pi-kiosk-proxy/blob/main/nginx-config/kiosk"><code>/home/pi/pi-kiosk-proxy/nginx-config/kiosk</code></a>: remove the GitHub Pages <code>rewrite</code> line and change <code>proxy_pass</code> to your own web server.</li>
+			<li>If your app is not at the root of its website, configure its path in <a href="https://github.com/darrylhodgins/pi-kiosk-proxy/blob/main/scripts/run.sh"><code>/home/pi/pi-kiosk-proxy/scripts/run.sh</code></a>.</li>
+			<li>Check and reload NGINX with <code>sudo nginx -t &amp;&amp; sudo systemctl reload nginx</code>.</li>
+		</ol>
+
+		<h2>Something isn't working?</h2>
+		<p>Visit the <a href="https://github.com/darrylhodgins/pi-kiosk-proxy">project on GitHub</a> or <a href="https://github.com/darrylhodgins/pi-kiosk-proxy/issues">open an issue</a>.</p>
+	</body>
+</html>

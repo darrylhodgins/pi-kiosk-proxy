@@ -15,20 +15,15 @@ server {
 	}
 
 	location @cloudserver {
-
-		# Configure this to the site you want to proxy
-
 		# Note that Nginx will not be able to start if it can't resolve this address,
 		# so you need to ensure that your Pi is configured to wait for network on boot.
 		# See https://github.com/darrylhodgins/pi-kiosk-proxy/blob/main/README.md
 
-		proxy_pass https://kiosk-example.darrylh.ca;
-
-
-		# Delete this line.  It's only used by the example server.
-
-		proxy_set_header X-Pi-Kiosk-Proxy "enabled";
-
+		# GitHub Pages serves project sites under /pi-kiosk-proxy/. Remove this
+		# rewrite when you change proxy_pass to your own web server.
+		rewrite ^/(.*)$ /pi-kiosk-proxy/$1 break;
+		proxy_pass https://darrylhodgins.github.io;
+		proxy_ssl_server_name on;
 
 		# Uncomment this line and edit it to add an Authorization header if your app requires it.
 
